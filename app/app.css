@@ -1,0 +1,135 @@
+body{
+    font-family: "Open Sans", sans-serif;
+}
+
+.container-fluid {
+    padding: 15px;
+}
+
+.data-container {
+    padding-top: 1%;
+    min-height: 800px;
+    background:url('http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/concrete_seamless.png');
+}
+
+.location-list .badge {
+    margin-left: 2%;
+}
+.color-box {
+    width: 44px;
+    height: 20px;
+    border: 2px solid #B8AFAF;
+    margin-right: 2%;
+}
+
+.search-field {
+    background-color: #CFCFD4;
+    height: 68px;
+    padding: 5px 3px 2px;
+    height: 47px;
+}
+
+.list-bookmarks {
+    background-color: white;
+    border: 3px solid #CFCFD4;
+    height: 47px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.listing-section {
+    color: #979797;
+}
+
+.sorting-button {
+    background-color: #E3E3E3;
+    height: 68px;
+    padding: 5px 3px 2px;
+    height: 47px;
+}
+
+.book-details .list-group li{
+    border: 0 none;
+    background-color: transparent;
+}
+
+.book-list .list-group-item{
+    border: 0 none;
+    background-color: transparent;
+    border: 2px solid #B7E19E;
+    margin-top: 10px;
+    font-weight: bolder;
+    border-radius: 8px;
+    color: gray;
+}
+
+.book-list .list-group-item:hover{
+    background-color: #D1EBC2;
+    border: 2px solid #6DA64D;
+    color: inherit;
+}
+
+.book-list .list-group-item:active {
+    background-color: #D1EBC2;
+    border: 2px solid #6DA64D;
+    color: inherit;
+}
+
+div.book-description {
+    background: url('../images/notbook.png') repeat-y;
+    font: normal 16px verdana;
+    color: #754102;
+    height: 200px;
+    line-height: 25px;
+    padding: 2px 35px;
+    border: solid 1px #ddd;
+    resize: none;
+    margin-bottom: 20px;
+}
+
+.share-bookmark-section .btn {
+    background-color: #F8F7F7;
+    color: #7DC35D;
+    border: 2px solid #D1EBC2;
+    font-size: large;
+    font-weight: bold;
+}
+
+.couter-section {
+    padding: 15px;
+    background-color: #DCEE65;
+    font-size: medium;
+    border: 2px solid #76AA46;
+}
+
+.book-details .panel > .panel-heading {
+    font-weight: bolder;
+    font-size: x-large;
+    background-image: none;
+    background-color: #6B6B6B;
+    color: white;
+}
+
+.book-details .panel > .panel-body {
+    font-size: medium;
+    background-color: #F1F0DF;
+}
+
+.fa-heart-o {
+    color: #0F0E0E;
+}
+
+.fa-heart {
+    color: #0F0E0E;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #0F0E0E;
+}
+
+.isReadonly > .fa-heart-o {
+    color: #0F0E0E;
+}
+
+.isReadonly > .fa-heart {
+    color: #0F0E0E;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #000000;
+}

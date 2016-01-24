@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <title>
+        BookHub— a simplified way to search Books!
+    </title>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="app/app.css">
+</head>
+<body class="container-fluid">
+<div class="body">
+    <div data-ng-controller="mainCtrl">
+        <div class="row">
+            <div class="col-md-8">
+                <img class="img-responsive" src="images/logo.png" alt="">
+            </div>
+            <div class="col-md-4">
+                <div class="well center-block pull-right couter-section">
+                    <span><strong>Total Books</strong>: {{ books.length}} |</span>
+                    <span><strong>Total Bookmarks</strong>: {{ bookmarkCount() }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row data-container">
+            <div class="col-md-6 listing-section">
+                <!-- location menu-->
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="well search-field">
+                            <form>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                                        <input type="text" class="form-control"
+                                               placeholder="Search(by name, author, rating)"
+                                               ng-model="searchNameAuthorRating">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="well list-bookmarks">
+                            <span ng-click="listBookmarks()"><i class="fa fa-bookmark"></i> List Bookmarks</span>
+                        </div>
+                    </div>
+                </div>
+                <div ng-hide="noBookmarks">
+                    <ul class="list-group book-list">
+                        <a class="list-group-item"
+                           ng-repeat="book in books | orderBy:sortType:sortReverse | filter:searchNameAuthorRating"
+                           ng-click="$parent.selected = book; selectedBook(book)"
+                           ng-class="{active:selected==book}">
+                            <i class="fa fa-forward pull-right"></i>
+                            <i class="fa fa-book"></i><span>{{ book.name }}</span>
+                            <span class="pull-right"> {{ book.price}}</span>
+                        </a>
+                    </ul>
+
+                    <div class="row">
+                        <!--col-md-offset-2-->
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="col-md-6">
+                                <div class="well list-bookmarks">
+                                    <span><i class="fa fa-sort fa-2x"></i> Short By</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="well sorting-button">
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-model="value" value="Rating" name="inlineRadioOptions"
+                                               id="inlineRadio1" value="option1"
+                                               ng-click="sortType = 'rating'; sortReverse = !sortReverse">
+                                        Rating
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" ng-model="value" value="Price" name="inlineRadioOptions"
+                                               id="inlineRadio2" value="option2"
+                                               ng-click="sortType = 'price'; sortReverse = !sortReverse">
+                                        Price
+                                    </label>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-show="noBookmarks">
+                    <div class="col-md-6 col-md-offset-4">
+                        <span class="alert alert-info">Sorry you don't have any bookmarks !</span>
+
+                    </div>
+                </div>
+            </div>
+            <div ng-hide="noBookmarks">
+                <div class="col-md-6">
+                    <!-- single location details -->
+                    <div class="col-md-6">
+                        <img class="img-thumbnail"
+                             ng-src="{{ book.image}}"
+                             alt="">
+                    </div>
+                    <div class="col-md-6 book-details">
+                        <div class="panel panel-default">
+                            <div class="panel-heading text-center">Details</div>
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <small>Publisher: {{ book.details.Publisher}}</small>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <small>ISBN: {{ book.details.ISBN}}</small>
+                                    </li>
+                                    <li class="list-group-item">Binding: {{ book.details.Binding}}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <small>Rating:
+                                            <angular-star-rating max="maxValue" value='book.rating'
+                                                                 hover='changeOnHover'
+                                                                 is-readonly='isReadonly'></angular-star-rating>
+                                        </small>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Description#</h4>
+
+                            <div class="unselectable book-description form-control" id="" cols="30" rows="8">{{
+                                book.description}}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row share-bookmark-section">
+                                <div class="col-md-4">
+                                    <button class="btn btn-block"><i class="fa fa-share fa-2x"></i> Share</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-block" ng-click="bookmark(book)"><i
+                                            class="fa fa-bookmark fa-2x"></i> Bookmark
+                                    </button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-block" ng-click="clearBookmark()" data-ng-disabled="bookmarkCount() == 0"><i
+                                            class="fa fa-trash-o fa-2x"></i> Clear Bookmarks
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<footer>
+    <!-- vendor components -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.min.js"></script>
+
+    <!-- scripts for various modules -->
+
+    <script src="app/appModule.js"></script>
+    <script src="app/appConfig.js"></script>
+    <script src="app/appRouteConfig.js"></script>
+    <script src="app/appFactory.js"></script>
+    <script src="app/appDirective.js"></script>
+    <script src="app/appController.js"></script>
+
+
+</footer>
+</html>
